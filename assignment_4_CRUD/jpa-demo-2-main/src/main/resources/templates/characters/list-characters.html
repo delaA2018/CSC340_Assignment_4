@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Characters</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+
+
+            <h1 >All Characters </h1>
+           
+            <a class="btn btn-primary" href="/characters/create">Create New Character</a>
+
+
+            <div id="accordion" th:each="character: ${characterList}">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button th:text="${character.characterName}" class="btn btn-link" data-toggle="collapse"
+                                    th:attr="data-target='#collapseOne'+${character.characterId}"
+                                    aria-expanded="true" aria-controls="collapseOne">                            
+                            </button>
+                            <a data-toggle="tooltip" data-placement="top" 
+                               title="Delete Character."
+                               th:href="@{/characters/delete/id={characterId}(characterId=${character.characterId})}"
+                               class="btn btn-secondary btn-sm float-right">
+                                Delete
+                            </a>
+
+                            <a class="btn btn-secondary btn-sm float-right" 
+                               th:href="@{/characters/update/id={characterId}(characterId=${character.characterId})}">Edit Character
+                            </a>
+                        </h5>
+                    </div>
+
+
+
+                    <div th:id="'collapseOne'+${character.characterId}" class="collapse"
+                         aria-labelledby="headingOne" data-parent="#accordion">
+
+
+                        <h5 th:text="'Name: '+${character.characterName}"  class="mb-0"> </h5>
+                        <h5 th:text="'Gender: '+ ${character.characterGender}" class="mb-0"></h5>
+                        <h5 th:text="'Game: '+ ${character.characterGame}" class="mb-0"></h5>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
